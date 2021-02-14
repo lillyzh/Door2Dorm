@@ -12,10 +12,33 @@ Recently requested rides
         <tr>
             <td> {{ ride.sunet }} </td>
             <td> {{ ride.time_requested }} </td>
-            <td> {{ ride.num_passengers }} </td> 
+            <td> {{ ride.num_passengers }} </td>
         </tr>
     {% endfor %}
     </table>
 {% else %}
     <p>No recent rides..</p>
 {% endif %}
+
+{% block script %}
+  <script>
+    var socket = new WebSocket(
+      'ws://'
+      + window.location.host
+      + '/ws/ride_queue/dispatcher/'
+    );
+
+    socket.onopen = function open() {
+      console.log('WebSockets connection created.');
+    };
+
+    socket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        location.reload()
+    };
+
+    if (socket.readyState == WebSocket.OPEN) {
+      socket.onopen();
+    }
+  </script>
+{% endblock script %}

@@ -1,12 +1,12 @@
 # Set up
 
-Read the following to set up and run this application. 
+Read the following to set up and run this application.
 
-## Setting up the Virtual Environment 
+## Setting up the Virtual Environment
 
-1. First, make sure you have at least 3GB free on your computer and then to head over to (https://www.anaconda.com/download/) and install the Python 3 version of Anaconda. 
+1. First, make sure you have at least 3GB free on your computer and then to head over to (https://www.anaconda.com/download/) and install the Python 3 version of Anaconda.
 
-2. After you have installed conda, ```cd``` into the ```door2dorm``` directory and run the following: 
+2. After you have installed conda, ```cd``` into the ```door2dorm``` directory and run the following:
 
 - Create an environment with dependencies specified in env.yml:
     ```
@@ -23,7 +23,7 @@ Read the following to set up and run this application.
 
 ## Starting the Server
 - Make sure you are inside the ```door2dorm``` directory and that you have activated the ```d2d_env``` virtual environment.
-- Migrate 
+- Migrate
     ```
     python manage.py migrate
     ```
@@ -38,7 +38,18 @@ Read the following to set up and run this application.
     ```
     localhost:8000/admin
     ```
-- Login using the following: (@Peter, this currently does not work for me)
-    * Username: ```admin```
-    * Password: ```cs194w```
 
+## Creating Admin Credentials
+    ```
+    python manage.py createsuperuser
+    ```
+- Enter your preferred username, email and password
+
+## Enabling Channel Layer
+- To download docker, please go to https://www.docker.com/get-started. Then run below commands.
+```
+docker run -p 6379:6379 -d redis:5
+```
+```
+python3 -m pip install channels_redis
+```

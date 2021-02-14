@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Chat Room</title>
+</head>
+<body>
+    <input id="submit" type="button" value="Send">
+    <script>
+
+        //Creating the websocket object that communicates with Django Channel
+        const socket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/ride_queue/rider/'
+        );
+
+        document.querySelector('#submit').onclick = function(e) {
+
+            //JSON version of info that gets sent over to the dispatcher
+            socket.send(JSON.stringify({
+                'sunet': 'abc',
+                'time_requested': '2021-02-10 04:59:57',
+                'num_passengers': '1'
+            }));
+        };
+    </script>
+</body>
+</html>
