@@ -34,10 +34,23 @@ Read the following to set up and run this application.
 - You may now start the development server at localhost:8000/ in any browser
 
 ## Accessing as ```Admin```
-- To add rides to the database, you may navigate to
+- Create a super user
+    ```
+    python manage.py createsuperuser
+    ```
+- Follow the steps to create an account 
+    * username
+    * email
+    * password
+- Now, you can start the server 
+    ```
+    python manage.py runserver
+    ```
+- As an admin/superuser, you may log into on the admin page using the account you just created
     ```
     localhost:8000/admin
     ```
+- Currently, the 'add ride' functionality is limitedly functional under ```RIDE_QUEUE``` on the left side of the panel. 
 
 ## Creating Admin Credentials
     ```
