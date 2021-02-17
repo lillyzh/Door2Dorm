@@ -53,3 +53,7 @@ docker run -p 6379:6379 -d redis:5
 ```
 python3 -m pip install channels_redis
 ```
+
+## Webpages
+- Visit localhost:8000 to review a list of requested rides
+- Visit localhost:8000/rider to view a simulated "send" button on the rider app
