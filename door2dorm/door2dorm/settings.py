@@ -30,6 +30,7 @@ ALLOWED_HOSTS = ['ec2-18-191-207-50.us-east-2.compute.amazonaws.com', '127.0.0.1
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'dispatcher_controller.apps.Dispatcher_Controller',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -118,3 +119,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+ASGI_APPLICATION = 'door2dorm.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
