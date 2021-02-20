@@ -1,0 +1,38 @@
+<h1>Driver Login Page</h1>
+<form>
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname"><br>
+  <label for="id">ID:</label><br>
+  <input type="text" id="id" name="id"><br>
+  <label for="lplate">Vehicle Licence Plate:</label><br>
+  <input type="text" id="lplate" name="lplate"><br>
+  <input id="submit" type="submit" value="Submit">
+  <script>
+    const socket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/driver/'
+    );
+
+    socket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        alert("Form successfully received!");
+    };
+
+    document.querySelector('#submit').onclick = function(e) {
+        const fname = document.querySelector('#fname').value;
+        const lname = document.querySelector('#lname').value;
+        const id = document.querySelector('#id').value;
+        const licence_plate = document.querySelector('#lplate').value;
+        socket.send(JSON.stringify({
+            'type': 'driver',
+            'first_name': fname,
+            'last_name': lname,
+            'driver_id': id,
+            'licence_plate': licence_plate,
+        }));
+    };
+  </script>
+</form>
