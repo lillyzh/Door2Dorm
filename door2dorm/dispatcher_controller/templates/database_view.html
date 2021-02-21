@@ -1,4 +1,4 @@
-<h1>Dispatcher Webpage</h1>
+<h1>Dispatcher View</h1>
 <h2>Recently requested rides</h2>
 {% if latest_rides_list %}
     <table>
@@ -6,7 +6,11 @@
             <th> Student Name </th>
             <th> SUNet ID </th>
             <th> Time Requested </th>
+            <th> From </th>
+            <th> To </th>
             <th> Number of Passengers </th>
+            <th> Safety Level </th>
+            <th> Driver Name </th>
             <th> Status </th>
         </tr>
     {% for ride in latest_rides_list %}
@@ -14,7 +18,11 @@
             <td> {{ ride.student.first_name }} {{ ride.student.last_name }} </td>
             <td> {{ ride.student.sunet }} </td>
             <td> {{ ride.time_requested }} </td>
+            <td> {{ ride.current_loc }} </td>
+            <td> {{ ride.dest_loc }} </td>
             <td> {{ ride.num_passengers }} </td>
+            <td> {{ ride.safety_lvl }} </td>
+            <td> {{ ride.driver.first_name }} {{ ride.driver.last_name }}</td>
             <td> {{ ride.assigned }} </td>
         </tr>
     {% endfor %}

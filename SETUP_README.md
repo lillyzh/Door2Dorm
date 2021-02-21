@@ -1,12 +1,12 @@
 # Set up
 
-Read the following to set up and run this application. 
+Read the following to set up and run this application.
 
-## Setting up the Virtual Environment 
+## Setting up the Virtual Environment
 
-1. First, make sure you have at least 3GB free on your computer and then to head over to (https://www.anaconda.com/download/) and install the Python 3 version of Anaconda. 
+1. First, make sure you have at least 3GB free on your computer and then to head over to (https://www.anaconda.com/download/) and install the Python 3 version of Anaconda.
 
-2. After you have installed conda, ```cd``` into the ```door2dorm``` directory and run the following: 
+2. After you have installed conda, ```cd``` into the ```door2dorm``` directory and run the following:
 
 - Create an environment with dependencies specified in env.yml:
     ```
@@ -23,9 +23,9 @@ Read the following to set up and run this application.
 
 ## Setting and Resetting the Database
 - Make sure you are inside the ```door2dorm``` directory and that you have activated the ```d2d_env``` virtual environment.
-- Delete the ```migrations``` and ```__pycache__``` directories. 
-- If you want to reset the database, delete the ```db.sqlite3``` file.
-- Migrate 
+- Delete the ```migrations``` and ```__pycache__``` directories.
+- Also, delete the ```db.sqlite3``` file as there are new updates to the database.
+- Migrate
     ```
     python manage.py makemigrations dispatcher_controller
     python manage.py migrate
@@ -42,11 +42,11 @@ Read the following to set up and run this application.
     ```
     python manage.py createsuperuser
     ```
-- Follow the steps to create an account 
+- Follow the steps to create an account
     * username
     * email
     * password
-- Now, you can start the server 
+- Now, you can start the server
     ```
     python manage.py runserver
     ```
@@ -54,5 +54,17 @@ Read the following to set up and run this application.
     ```
     localhost:8000/admin
     ```
-- Currently, the 'add ride' functionality is limitedly functional under ```RIDE_QUEUE``` on the left side of the panel. 
+## Enabling Channel Layer
+- To download docker, please go to https://www.docker.com/get-started. Then run below commands.
+```
+docker run -p 6379:6379 -d redis:5
+```
+```
+python3 -m pip install channels_redis
+```
 
+## URLs to visit
+- Visit localhost:8000 to view information about all ride requests, all registered members and all registered drivers
+- Visit localhost:8000/rider/application to submit a ride request
+- Visit localhost:8000/student/application to register a new member
+- Visit localhost:8000/driver/application to register a new driver

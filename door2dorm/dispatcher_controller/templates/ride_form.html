@@ -1,0 +1,42 @@
+<h1>Ride Application</h1>
+<form>
+  <label for="id">SUNet:</label><br>
+  <input type="text" id="id" name="id"><br>
+  <label for="from">From:</label><br>
+  <input type="text" id="from" name="from"><br>
+  <label for="to">To:</label><br>
+  <input type="text" id="to" name="to"><br>
+  <label for="numpass">Number of Passengers:</label><br>
+  <input type="text" id="numpass" name="numpass"><br>
+  <label for="safetylvl">Are you feeling safe? (0: not at all, 10: very safe)</label><br>
+  <input type="text" id="safetylvl" name="safetylvl"><br>
+  <input id="submit" type="submit" value="Submit">
+  <script>
+    const socket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/ride/'
+    );
+
+    socket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        alert("Form successfully received!");
+    };
+
+    document.querySelector('#submit').onclick = function(e) {
+        const sunet = document.querySelector('#id').value;
+        const from = document.querySelector('#from').value;
+        const to = document.querySelector('#to').value;
+        const numpass = document.querySelector('#numpass').value;
+        const safetylvl = document.querySelector('#safetylvl').value;
+        socket.send(JSON.stringify({
+            'type': 'ride',
+            'sunet': sunet,
+            'from': from,
+            'to': to,
+            'numpass': numpass,
+            'safetylvl': safetylvl,
+        }));
+    };
+  </script>
+</form>

@@ -10,11 +10,8 @@ class Student(models.Model):
     phone = models.PositiveIntegerField()
 
     def __str__(self):
-        return "{} {} {}".format(self.first_name, self.last_name, self.student_id)
+        return "{} {} {}".format(self.first_name, self.last_name, self.sunet)
 
-    @classmethod
-    def create(cls, sid, sunet, first, last, email, phone):
-        return cls(student_id = sid, sunet = sunet, first_name = first, last_name = last, email = email, phone = phone)
 
 class Driver(models.Model):
     first_name = models.CharField(max_length=30)
@@ -32,8 +29,10 @@ class Driver(models.Model):
 
 class Ride(models.Model):
     student = models.ForeignKey(Student, on_delete = models.DO_NOTHING)
+    current_loc = models.CharField(max_length=30)
     current_lat = models.FloatField(default = 38.2393)
     current_long = models.FloatField(default = -85.7598)
+    dest_loc = models.CharField(max_length=30)
     dest_lat = models.FloatField(default = 37.4254)
     dest_long = models.FloatField(default = -122.1629)
     num_passengers = models.IntegerField(default = 1) # TODO: Add validator to restrict range [1, 4]

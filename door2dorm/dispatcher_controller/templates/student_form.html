@@ -1,19 +1,21 @@
-<h1>Driver Application</h1>
+<h1>Student Application</h1>
 <form>
   <label for="fname">First name:</label><br>
   <input type="text" id="fname" name="fname"><br>
   <label for="lname">Last name:</label><br>
   <input type="text" id="lname" name="lname"><br>
-  <label for="id">ID:</label><br>
+  <label for="id">SUNet:</label><br>
   <input type="text" id="id" name="id"><br>
-  <label for="lplate">Vehicle Licence Plate:</label><br>
-  <input type="text" id="lplate" name="lplate"><br>
+  <label for="email">Email:</label><br>
+  <input type="text" id="email" name="email"><br>
+  <label for="phone">Phone:</label><br>
+  <input type="text" id="phone" name="phone"><br>
   <input id="submit" type="submit" value="Submit">
   <script>
     const socket = new WebSocket(
         'ws://'
         + window.location.host
-        + '/ws/driver/'
+        + '/ws/student/'
     );
 
     socket.onmessage = function(e) {
@@ -24,14 +26,16 @@
     document.querySelector('#submit').onclick = function(e) {
         const fname = document.querySelector('#fname').value;
         const lname = document.querySelector('#lname').value;
-        const id = document.querySelector('#id').value;
-        const licence_plate = document.querySelector('#lplate').value;
+        const sunet = document.querySelector('#id').value;
+        const email = document.querySelector('#email').value;
+        const phone = document.querySelector('#phone').value;
         socket.send(JSON.stringify({
-            'type': 'driver',
+            'type': 'student',
             'first_name': fname,
             'last_name': lname,
-            'driver_id': id,
-            'licence_plate': licence_plate,
+            'sunet': sunet,
+            'email': email,
+            'phone': phone,
         }));
     };
   </script>
