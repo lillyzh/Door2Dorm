@@ -35,41 +35,38 @@ class RequestPage extends React.Component {
 
   submitButton() {
     //Do the error handling especiall for validity
-    let url = 'http://127.0.0.1:8000/students/placeholder/cr-student';
+    // let url = 'http://127.0.0.1:8000/students/placeholder/cr-student';
 
-    axios.get(url, {
-      params: {
-        "first": this.state.firstName,
-        "last": this.state.lastName,
-        "sunet": this.state.sunet,
-        "student_id": this.state.studentId,
-        "phone": this.state.phoneNumber,
-        "email": this.state.emailAddress
-      }
-    }).then(function(res) {
-        console.log('Response received\n');
-        console.log(res.data);
-      })
-      .catch(function(err) {
-        console.log("Error making the call");
-        console.log(err);
-        if (err.request) {
-          console.log(err.request);
-        }
-      });
+    // axios.get(url, {
+    //   params: {
+    //     "first": this.state.firstName,
+    //     "last": this.state.lastName,
+    //     "sunet": this.state.sunet,
+    //     "student_id": this.state.studentId,
+    //     "phone": this.state.phoneNumber,
+    //     "email": this.state.emailAddress
+    //   }
+    // }).then(function(res) {
+    //     console.log('Response received\n');
+    //     console.log(res.data);
+    //   })
+    //   .catch(function(err) {
+    //     console.log("Error making the call");
+    //     console.log(err);
+    //     if (err.request) {
+    //       console.log(err.request);
+    //     }
+    //   });
 
-//        const socket = new WebSocket
-//        'ws://'
-//        + window.location.host
-//        + 'ws/ride_queue/rider/'
-//
-//        let currentDate = new Date()
-//
-//        socket.send(JSON.stringify({
-//            'sunet': this.state.sunet,
-//            'time_requested': currentDate,
-//            'num_passengers': this.state.numRiders,
-//        }));
+      const socket = new WebSocket('ws://' + window.location.host + '/ws/student/');
+      socket.send(JSON.stringify({
+        'type': 'student',
+        'first_name': this.state.firstName,
+        'last_name': this.state.lastName,
+        'sunet': this.state.sunet,
+        'email': this.state.emailAddress,
+        'phone': this.state.phoneNumber,
+      }));
     }
 
   render() {

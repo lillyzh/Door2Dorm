@@ -32,13 +32,14 @@ class StudentViewSet(viewsets.ModelViewSet):
             request.GET["email"],
             int(request.GET["phone"]),
         )
+        student.save()
         template = loader.get_template('cr_student.html')
         context = {
-            'student': student,
+            'students': Student.objects.all(),
         }
-        student.save()
         serializer = StudentSerializer(student)
         return Response(serializer.data, status=201)
+        # return HttpResponse(template.render(context, request))
 
 def ride_queue_view(request):
     latest_rides_list = Ride.objects.order_by('time_requested')
@@ -49,10 +50,10 @@ def ride_queue_view(request):
     return render(request, 'ride_queue.html', context)
 
 def create_student(request):
-    student = Student.create(1213123, "testing", "mandy", "li", "jk@gmail.com", 1233123213)
+    # student = Student.create(1213123, "testing", "mandy", "li", "jk@gmail.com", 1233123213)
+    # student.save()
     template = loader.get_template('cr_student.html')
     context = {
-        'student': student,
+        'students': Student.objects.all(),
     }
-    student.save()
     return render(request, 'cr_student.html', context)
