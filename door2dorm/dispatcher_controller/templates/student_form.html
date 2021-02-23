@@ -17,7 +17,6 @@
         + window.location.host
         + '/ws/student/'
     );
-
     socket.onmessage = function(e) {
         const data = JSON.parse(e.data);
         alert("Form successfully received!");
