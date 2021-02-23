@@ -1,5 +1,7 @@
 from django.db import models
 from datetime import datetime
+from phonenumber_field.modelfields import PhoneNumberField
+
 
 # Create your models here.
 class Student(models.Model):
@@ -8,7 +10,7 @@ class Student(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.EmailField(max_length=30)
-    phone = models.PositiveIntegerField()
+    phone = PhoneNumberField() # using django-phonenumber-field 
 
     def __str__(self):
         return "Student with Student ID {} made.".format(self.student_id) 
