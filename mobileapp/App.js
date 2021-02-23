@@ -9,8 +9,9 @@
 import React from 'react';
 
 //import necessary components
-import RequestPage from './components/requestPage'
-import EtaPage from './components/etaPage'
+import RegisterPage from './components/registerPage';
+import RequestPage from './components/ridePage';
+import EtaPage from './components/etaPage';
 
 import {
   SafeAreaView,
@@ -37,12 +38,58 @@ class App extends React.Component {
     super(props);
     this.state = {
         userIsLoggedIn: false,
+        rideRequested: false,
+        firstName: "",
+        lastName: "",
+        sunet: "",
+        studentId: "",
+        phoneNumber: "",
+        numRiders: "",
+        currentLoc: "",
+        destination: "",
+        safetyLevel: "",
     };
   }
 
-  hitSubmit = () => {
+  leaveQueue = () => {
+    this.setState({
+      rideRequested: false,
+      numRiders: "",
+      currentLoc: "",
+      destination: "",
+      safetyLevel: "",
+    });
+  }
+
+  logout = () => {
+    this.setState({
+      userIsLoggedIn: false,
+      firstName: "",
+      lastName: "",
+      sunet: "",
+      studentId: "",
+      phoneNumber: "",
+    });
+  }
+
+  hitRequest = (body) => {
+    this.setState({
+      rideRequested: true,
+      currentLoc: body.currentLoc,
+      destination: body.destination,
+      numRiders: body.numRiders,
+      safetyLevel: body.safetyLevel,
+    })
+  }
+
+  hitSubmit = (body) => {
       this.setState({
         userIsLoggedIn : true,
+        firstName: body.firstName,
+        lastName: body.lastName,
+        sunet: body.sunet,
+        studentId: body.studentId,
+        phoneNumber: body.phoneNumber,
       });
     }
 
@@ -56,10 +103,13 @@ class App extends React.Component {
                     style={styles.scrollView}>
 
                 {
-                    this.state.userIsLoggedIn ?
-                        <EtaPage />
+                    this.state.userIsLoggedIn && this.state.rideRequested ?
+                        <EtaPage oldState={this.state} onLeave={this.leaveQueue} />
                     :
-                        <RequestPage onLogin={this.hitSubmit} />
+                        this.state.userIsLoggedIn ?
+                          <RequestPage onRequest={this.hitRequest} studentInfo={this.state} onLogout={this.logout} />
+                        :
+                          <RegisterPage onLogin={this.hitSubmit} />
                 }
                 </ScrollView>
                 </SafeAreaView>

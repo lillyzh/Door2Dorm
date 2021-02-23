@@ -56,3 +56,10 @@ Read the following to set up and run this application.
 ## Url to visit
 - Please visit ```localhost:8000``` to view the new dispatcher view
 
+## Running the Rider Side Mobile App
+- If desired, you may use a virtual environment for easy removal
+
+- The link below will walk you through setup and configuration. Note you should skip the "Creating a new application" section and instead 
+use ```npm install``` within the mobileapp directory to retrieve the node modules.
+
+- https://reactnative.dev/docs/environment-setup

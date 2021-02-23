@@ -13,6 +13,11 @@ from django.utils.dateparse import parse_datetime
 from django.db import models
 from datetime import datetime
 
+<<<<<<< HEAD
+=======
+import logging
+
+>>>>>>> Phone simulator documentation added
 def get_value(name, val_type, request):
     if not request:
         return None
@@ -43,7 +48,10 @@ class StudentViewSet(viewsets.ModelViewSet):
     @action(methods=['get'], detail=True,
             url_path='cr-student', url_name='create_student')
     def cr_student_func(self, request, pk=None):
+<<<<<<< HEAD
 
+=======
+>>>>>>> Phone simulator documentation added
         student_id = get_value("student_id", 'int', request)
         sunet = get_value("sunet", 'str', request)
         first = get_value("first", 'str', request)
@@ -65,6 +73,7 @@ class StudentViewSet(viewsets.ModelViewSet):
         }
         student.save()
         serializer = StudentSerializer(student)
+<<<<<<< HEAD
 
         properties = {
             'student_id': student_id,
@@ -86,6 +95,9 @@ class StudentViewSet(viewsets.ModelViewSet):
         both_data = dict(serializer.data).copy()
         both_data.update(dict(ride_ser.data))
         return Response(both_data, status=201)
+=======
+        return Response(serializer.data, status=201)
+>>>>>>> Phone simulator documentation added
 
 class RideViewSet(viewsets.ModelViewSet):
     # CommentTag: MAKE_POST

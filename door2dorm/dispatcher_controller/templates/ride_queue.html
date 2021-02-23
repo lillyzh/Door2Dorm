@@ -1,0 +1,21 @@
+<h1>
+Recently requested rides
+</h1>
+{% if latest_rides_list %}
+    <table>
+        <tr>
+            <th> student ID </th>
+            <th> Time requested </th>
+            <th> Number of passengers </th>
+        </tr>
+    {% for ride in latest_rides_list %}
+        <tr>
+            <td> {{ ride.student.student_id }} </td>
+            <td> {{ ride.time_requested }} </td>
+            <td> {{ ride.num_passengers }} </td> 
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No recent rides..</p>
+{% endif %}
