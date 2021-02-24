@@ -39,10 +39,10 @@ class RequestPage extends React.Component {
     var phoneno = /^\d{10}$/;
     let url = 'http://127.0.0.1:8000/students/placeholder/cr-student';
 
-    if (this.state.firstName.length < 1) {
-      alert("You must enter a first name")
-    } else if (this.state.lastName.length < 1) {
-      alert("You must enter a last name")
+    if (this.state.firstName.length < 1 || !/^[a-zA-Z]+$/.test(this.state.firstName)) {
+      alert("You must enter a valid first name")
+    } else if (this.state.lastName.length < 1 || !/^[a-zA-Z]+$/.test(this.state.lastName)) {
+      alert("You must enter a valid last name")
     } else if (this.state.sunet.length > 8 || !/^[a-zA-Z]+$/.test(this.state.sunet)) {
       // Todo: Send validation to Stanford DB that this is a real sunet ID
       alert("Double check your Sunet contains less than 9 characters")

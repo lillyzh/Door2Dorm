@@ -44,10 +44,10 @@ class RequestPage extends React.Component {
         alert("You must enter a current location")
     } else if (this.state.destination.length < 1) {
         alert("You must enter a destination")
-    } else if (!this.state.numRiders.match(numPassengers)) {
-      alert("Double check your number of riders is a digit less than 5")
+    } else if (!this.state.numRiders.match(numPassengers) || Number(this.state.numRiders) == 0 || Number(this.state.numRiders) >= 5) {
+      alert("Double check your number of riders is a digit between 1 and 5")
     } else if (!this.state.safetyLevel.match(safetyNum)) {
-        alert("Double check your safety level is a digit between 1 and 9")
+        alert("Double check your safety level is a digit between 0 and 9")
     } else {
     
       let body = {
