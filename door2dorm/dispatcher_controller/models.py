@@ -28,7 +28,6 @@ class Ride(models.Model):
     # TODO: Add destination string?
     # TODO: Add current location string?
     # TOTHINK: Is this necessary (does Google maps or Stanford Map/Location provide an API )
-    sunet = models.CharField(max_length=30) # who requested the ride?
     dest_lat = models.FloatField(default = 37.4254)
     dest_long = models.FloatField(default = -122.1629) 
     num_passengers = models.IntegerField(default = 1) # TODO: Add validator to restrict range [1, 4]
@@ -45,8 +44,8 @@ class Ride(models.Model):
         return "Ride made."
 
     @classmethod
-    def create(cls, sunet, current_location, destination, num_passengers, safety_lvl):
-        return cls(sunet=sunet, current_location=current_location, destination=destination, num_passengers=num_passengers,
+    def create(cls, current_location, destination, num_passengers, safety_lvl):
+        return cls(current_location=current_location, destination=destination, num_passengers=num_passengers,
                 safety_lvl=safety_lvl)
 class Driver(models.Model):
     # TOTHINK: Should we add a driver id field (for this db) ?

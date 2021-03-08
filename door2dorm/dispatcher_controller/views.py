@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-import json
 
 from .models import Ride, Student, Driver
 from .serializers import StudentSerializer, RideSerializer, DriverSerializer
@@ -17,12 +16,7 @@ from datetime import datetime
 def get_value(name, val_type, request):
     if not request:
         return None
-    
-    # By default, 'axios.post' sends data in json format while djangos's request.POST
-    # assumes data is as a form. We therefore have to read the body into a dictionary
-    # using the json package. 
-    received_json_data = json.loads(request.body.decode("utf-8"))
-    val = received_json_data.get(name, None)
+    val = request.GET[name]
     if not val: 
         return None
     
@@ -46,10 +40,9 @@ class StudentViewSet(viewsets.ModelViewSet):
     # If we simply get axios.get() from requestPage.js on the webapp side,
     # we get a status code 405. Will probably need to play around with
     # rest_framework.permissions
-    @action(methods=['post'], detail=True,
+    @action(methods=['get'], detail=True,
             url_path='cr-student', url_name='create_student')
     def cr_student_func(self, request, pk=None):
-        print(json.loads(request.body.decode("utf-8")))
         student_id = get_value("student_id", 'int', request)
         sunet = get_value("sunet", 'str', request)
         first = get_value("first", 'str', request)
@@ -65,6 +58,10 @@ class StudentViewSet(viewsets.ModelViewSet):
             email,
             phone
         )
+        template = loader.get_template('cr_student.html')
+        context = {
+            'student': student,
+        }
         student.save()
         serializer = StudentSerializer(student)
         return Response(serializer.data, status=201)
@@ -83,15 +80,14 @@ class RideViewSet(viewsets.ModelViewSet):
     # rest_framework.permissions
 
     # Currently, we can hack this function this create both the student and the ride at the same time
-    @action(methods=['post'], detail=True,
+    @action(methods=['get'], detail=True,
             url_path='cr-ride', url_name='create_ride')
     def cr_ride_func(self, request, pk=None):
-        sunet = get_value("sunet", "str", request)
         current_loc = get_value("current_loc", 'str', request)
         dest = get_value("destination", 'str', request)
         num_riders = get_value("num_riders", 'int', request)
         safety_level = get_value("safety_level", 'int', request)
-        ride = Ride.create(sunet, current_loc, dest, num_riders, safety_level)
+        ride = Ride.create(current_loc, dest, num_riders, safety_level)
         ride.save()
         serializer = RideSerializer(ride)
         return Response(serializer.data, status=201)

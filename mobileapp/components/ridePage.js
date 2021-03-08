@@ -8,7 +8,6 @@ import {
   StyleSheet,
 } from 'react-native';
 import axios from 'axios';
-import { ReadItem } from "./databaseHelper";
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
@@ -35,12 +34,11 @@ class RequestPage extends React.Component {
       this.props.onLogout();
   }
 
-  // async so that we can handle promise from AsyncStorage
-  async requestButton() {
+  requestButton() {
 
     var numPassengers = /^\d{1}$/;
     var safetyNum = /^\d{1}$/;
-    let url = 'http://127.0.0.1:8000/rides/placeholder/cr-ride/'; // append slash to match Django expectations
+    let url = 'http://127.0.0.1:8000/rides/placeholder/cr-ride';
 
     if (this.state.currentLoc.length < 1) {
         alert("You must enter a current location")
@@ -51,21 +49,22 @@ class RequestPage extends React.Component {
     } else if (!this.state.safetyLevel.match(safetyNum)) {
         alert("Double check your safety level is a digit between 1 and 9")
     } else {
-      var sunet = await ReadItem("sunet"); // promise, wait for this value
+    
       let body = {
         // case must match that of backend
-        current_loc: this.state.currentLoc,
-        destination: this.state.destination,
-        num_riders: this.state.numRiders,
-        safety_level: this.state.safetyLevel,
-        sunet: sunet
-      };
+        "student_id": this.state.studentId,
+        "current_loc": this.state.currentLoc,
+        "destination": this.state.destination,
+        "num_riders": this.state.numRiders,
+        "safety_level": this.state.safetyLevel,
+      }
 
       // TODO: Once fully connected need to move this.props.onLogin() to the success .then portion so we only move you with a successful request.
       this.props.onRequest(body);
       console.log(body);
-      axios.post(url, body)
-        .then(function(res) {
+      axios.get(url, {
+        params: body
+      }).then(function(res) {
           console.log('Response received\n');
           console.log(res.data);
         })
