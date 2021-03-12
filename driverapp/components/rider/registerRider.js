@@ -21,7 +21,7 @@ class RegisterPage extends React.Component {
         firstName: "",
         lastName: "",
         sunet: "",
-        studentId: "",
+        password: "",
         phoneNumber: "",
 
         // TODO: 
@@ -52,9 +52,6 @@ class RegisterPage extends React.Component {
     } else if (this.state.sunet.length > 8 || !/^[a-zA-Z]+$/.test(this.state.sunet)) {
       // Todo: Send validation to Stanford DB that this is a real sunet ID
       alert("Double check your Sunet contains less than 9 characters")
-    } else if (!this.state.studentId.match(stuID)) {
-      // Todo: Send validation to Stanford DB that this is a real sunet ID
-      alert("Make sure you use your student ID with only one leading 0")
     } else if (!this.state.phoneNumber.match(phoneno)) {
       alert("Double check your phone number is valid, numbers only please!")
     } else {
@@ -63,20 +60,13 @@ class RegisterPage extends React.Component {
         "first": this.state.firstName,
         "last": this.state.lastName,
         "sunet": this.state.sunet,
-        "student_id": this.state.studentId,
+        "password": this.state.password,
         "phone": this.state.phoneNumber,
       }
       // TODO: Once fully connected need to move this.props.history.push() to the success .then portion so we only move you with a successful request.
       this.props.history.push("/rideRequest");
-      let payload =  {
-        first: this.state.firstName,
-        last: this.state.lastName,
-        sunet: this.state.sunet,
-        student_id: this.state.studentId,
-        email: this.state.sunet + "@stanford.edu",
-        phone: this.state.phoneNumber};
       SaveItem('sunet', this.state.sunet);
-      axios.post(url, payload)
+      axios.post(url, body)
         .then(function(res) {
           console.log('Response received\n');
           console.log(res.data);
@@ -129,27 +119,17 @@ class RegisterPage extends React.Component {
                       }}
                 />
 
-                <Text style={styles.sectionTitle}>Student ID (Number)</Text>
+                <Text style={styles.sectionTitle}>Password</Text>
                 <TextInput
                       autoCapitalize={'none'}
                       autoCompleteType={'off'}
                       autoCorrect={false}
                       spellCheck={false}
                       style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                      keyboardType={'number-pad'}
                       onChange={(e) => {
-                          this.setState({ studentId: e.nativeEvent.text });
+                          this.setState({ password: e.nativeEvent.text });
                       }}
                 />
-                {/* // COMMENT: Not rendered because the Student Model does not contain these values */}
-                {/* <Text style={styles.sectionTitle}>Number of Riders</Text>
-                <TextInput
-                      style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                      keyboardType={'number-pad'}
-                      onChange={(e) => {
-                          this.setState({ numRiders: e.nativeEvent.text });
-                      }}
-                /> */}
 
                 <Text style={styles.sectionTitle}>Phone Number (Numbers only please)</Text>
                 <TextInput
