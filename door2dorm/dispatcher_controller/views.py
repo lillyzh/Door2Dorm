@@ -44,7 +44,6 @@ class StudentViewSet(viewsets.ModelViewSet):
             sunet = get_value("sunet", 'str', request)
             first = get_value("first", 'str', request)
             last = get_value("last", 'str', request)
-            email = get_value("email", 'str', request)
             phone = get_value("phone", 'int', request)
             password = get_value("password", 'str', request)
         except KeyError as e:
@@ -55,7 +54,6 @@ class StudentViewSet(viewsets.ModelViewSet):
             sunet,
             first,
             last,
-            email,
             phone,
             password
         )

@@ -14,8 +14,8 @@ class Student(models.Model):
         return "Student with Student ID {} made.".format(self.sunet) 
 
     @classmethod
-    def create(cls, sunet, first, last, email, phone, password):
-        return cls(sunet = sunet, first_name = first, last_name = last, email = email, phone = phone, password = password)
+    def create(cls, sunet, first, last, phone, password):
+        return cls(sunet = sunet, first_name = first, last_name = last, email = sunet + "@stanford.edu", phone = phone, password = password)
 
 
 class Ride(models.Model):
