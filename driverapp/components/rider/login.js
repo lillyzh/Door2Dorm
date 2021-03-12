@@ -110,8 +110,8 @@ class LoginRiderPage extends React.Component {
       alignItems: "flex-start",
     },
     logo: {
-      width: 150,
-      height: 150,
+      width: 170,
+      height: 170,
       marginBottom: 40,
       marginTop: 100,
     },
