@@ -6,6 +6,9 @@ import {
   Alert,
   View,
   StyleSheet,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
 } from 'react-native';
 import axios from 'axios';
 import { SaveItem } from "./databaseHelper";
@@ -21,15 +24,16 @@ class RegisterPage extends React.Component {
         firstName: "",
         lastName: "",
         sunet: "",
-        studentId: "",
         phoneNumber: "",
+        emailAddress: "",
+        password: "",
 
         // TODO: 
         // Currently not used because the Student Model does not contain these values
         numRiders: 0,
         currentLoc: "",
         destination: "",
-        emailAddress: "",
+        
 
     };
     this.register = this.register.bind(this);
@@ -52,9 +56,6 @@ class RegisterPage extends React.Component {
     } else if (this.state.sunet.length > 8 || !/^[a-zA-Z]+$/.test(this.state.sunet)) {
       // Todo: Send validation to Stanford DB that this is a real sunet ID
       alert("Double check your Sunet contains less than 9 characters")
-    } else if (!this.state.studentId.match(stuID)) {
-      // Todo: Send validation to Stanford DB that this is a real sunet ID
-      alert("Make sure you use your student ID with only one leading 0")
     } else if (!this.state.phoneNumber.match(phoneno)) {
       alert("Double check your phone number is valid, numbers only please!")
     } else {
@@ -63,8 +64,9 @@ class RegisterPage extends React.Component {
         "first": this.state.firstName,
         "last": this.state.lastName,
         "sunet": this.state.sunet,
-        "student_id": this.state.studentId,
         "phone": this.state.phoneNumber,
+        "email": this.state.emailAddress,
+        "password": this.state.password,
       }
       // TODO: Once fully connected need to move this.props.history.push() to the success .then portion so we only move you with a successful request.
       this.props.history.push("/rideRequest");
@@ -72,8 +74,7 @@ class RegisterPage extends React.Component {
         first: this.state.firstName,
         last: this.state.lastName,
         sunet: this.state.sunet,
-        student_id: this.state.studentId,
-        email: this.state.sunet + "@stanford.edu",
+        email: this.state.emailAddress,
         phone: this.state.phoneNumber};
       SaveItem('sunet', this.state.sunet);
       axios.post(url, payload)
@@ -94,124 +95,150 @@ class RegisterPage extends React.Component {
   // TODO: Need input validation so the values sent over isn't None
   render() {
     return (
-          <View style={styles.body}>
-                <Text style={styles.sectionTitle}>First Name</Text>
+      <SafeAreaView>
+        <View style={styles.container}>
+            <Image
+                style={styles.logo}
+                source={require('../../img/Door2Dorm2.png')}
+            />
+            <View style={styles.inputView}>
                 <TextInput
-                      autoCompleteType={'off'}
-                      autoCorrect={false}
-                      spellCheck={false}
-                      style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                      onChange={(e) => {
-                          this.setState({ firstName: e.nativeEvent.text });
-                      }}
+                  autoCompleteType={'off'}
+                  autoCorrect={false}
+                  spellCheck={false}
+                  style={styles.textInput}
+                  placeholder="First Name"
+                  placeholderTextColor="#a3aaad"
+                  onChange={(e) => {
+                    this.setState({ firstName: e.nativeEvent.text });
+                  }}
                 />
-
-                <Text style={styles.sectionTitle}>Last Name</Text>
+            </View>
+            <View style={styles.inputView}>
                 <TextInput
-                      autoCompleteType={'off'}
-                      autoCorrect={false}
-                      spellCheck={false}
-                      style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                      onChange={(e) => {
-                          this.setState({ lastName: e.nativeEvent.text });
-                      }}
+                  autoCompleteType={'off'}
+                  autoCorrect={false}
+                  spellCheck={false}
+                  style={styles.textInput}
+                  placeholder="Last Name"
+                  placeholderTextColor="#a3aaad"
+                  onChange={(e) => {
+                    this.setState({ lastName: e.nativeEvent.text });
+                  }}
                 />
-
-                <Text style={styles.sectionTitle}>Sunet (No @stanford.edu)</Text>
+            </View>
+            <View style={styles.inputView}>
                 <TextInput
-                      autoCapitalize={'none'}
-                      autoCompleteType={'off'}
-                      autoCorrect={false}
-                      spellCheck={false}
-                      style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                      onChange={(e) => {
-                          this.setState({ sunet: e.nativeEvent.text });
-                      }}
+                  autoCapitalize={'none'}
+                  autoCompleteType={'off'}
+                  autoCorrect={false}
+                  spellCheck={false}
+                  style={styles.textInput}
+                  placeholder="Sunet ID"
+                  placeholderTextColor="#a3aaad"
+                  onChange={(e) => {
+                    this.setState({ sunet: e.nativeEvent.text });
+                  }}
                 />
-
-                <Text style={styles.sectionTitle}>Student ID (Number)</Text>
+            </View>
+            <View style={styles.inputView}>
                 <TextInput
-                      autoCapitalize={'none'}
-                      autoCompleteType={'off'}
-                      autoCorrect={false}
-                      spellCheck={false}
-                      style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                      keyboardType={'number-pad'}
-                      onChange={(e) => {
-                          this.setState({ studentId: e.nativeEvent.text });
-                      }}
+                  autoCapitalize={'none'}
+                  autoCompleteType={'off'}
+                  autoCorrect={false}
+                  spellCheck={false}
+                  style={styles.textInput}
+                  placeholder="Phone Number"
+                  placeholderTextColor="#a3aaad"
+                  onChange={(e) => {
+                    this.setState({ phoneNumber: e.nativeEvent.text });
+                  }}
                 />
-                {/* // COMMENT: Not rendered because the Student Model does not contain these values */}
-                {/* <Text style={styles.sectionTitle}>Number of Riders</Text>
+            </View>
+            <View style={styles.inputView}>
                 <TextInput
-                      style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                      keyboardType={'number-pad'}
-                      onChange={(e) => {
-                          this.setState({ numRiders: e.nativeEvent.text });
-                      }}
-                /> */}
-
-                <Text style={styles.sectionTitle}>Phone Number (Numbers only please)</Text>
-                <TextInput
-                      style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                      keyboardType={'phone-pad'}
-                      onChange={(e) => {
-                          this.setState({ phoneNumber: e.nativeEvent.text });
-                      }}
+                  autoCapitalize={'none'}
+                  autoCompleteType={'off'}
+                  autoCorrect={false}
+                  spellCheck={false}
+                  style={styles.textInput}
+                  placeholder="Email"
+                  placeholderTextColor="#a3aaad"
+                  onChange={(e) => {
+                    this.setState({ emailAddress: e.nativeEvent.text });
+                  }}
                 />
-
-                {/* // COMMENT: Not rendered because the Student Model does not contain these values */}
-                {/* <Text style={styles.sectionTitle}>Current Location</Text>
+            </View>
+            <View style={styles.inputView}>
                 <TextInput
-                      style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                      onChange={(e) => {
-                        this.setState({ currentLoc: e.nativeEvent.text });
-                      }}
+                  autoCompleteType={'off'}
+                  autoCorrect={false}
+                  spellCheck={false}
+                  style={styles.textInput}
+                  placeholder="Password"
+                  placeholderTextColor="#a3aaad"
+                  secureTextEntry={true}
+                  onChange={(e) => {
+                    this.setState({ password : e.nativeEvent.text });
+                  }}
                 />
-
-                <Text style={styles.sectionTitle}>Destination</Text>
-                <TextInput
-                      style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                      onChange={(e) => {
-                          this.setState({ destination: e.nativeEvent.text });
-                      }}
-                /> */}
-
-                {/* <Text style={styles.sectionTitle}>Email</Text>
-                <TextInput
-                      style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                      keyboardType={'email-address'}
-                      onChange={(e) => {
-                          this.setState({ emailAddress: e.nativeEvent.text });
-                      }}
-                /> */}
-                <Button
-                  onPress={this.register}
-                  title="Register"
-                  accessibilityLabel="Register"
-                  color='#55D7F5'
-                />
-                <Button
-                      style={styles.button}
-                      onPress={this.switchToLogin}
-                      title="Already Have an Account? Login"
-                      accessibilityLabel="Login"
-                      color='#55D7F5'
-                  />
+            </View>
+            <TouchableOpacity onPress={this.register} style={styles.registerBtn}>
+                <Text>Register</Text>
+            </TouchableOpacity>
+            <Button
+                style={styles.button}
+                onPress={this.switchToLogin}
+                title="Already Have an Account? Sign In"
+                accessibilityLabel="Sign In"
+                color='black'
+              />
           </View>
+      </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-      body: {
-        backgroundColor: Colors.white,
-      },
-      sectionTitle: {
-        fontSize: 24,
-        fontWeight: '600',
-        color: Colors.black,
-      }
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+   },
+  back: {
+    alignItems: "flex-start",
+  },
+  logo: {
+    width: 170,
+    height: 170,
+    marginBottom: 40,
+    marginTop: 30,
+  },
+  inputView: {
+    backgroundColor: "#eceeee",
+    borderRadius: 30,
+    width: 350,
+    height: 45,
+    marginBottom: 20,
+    alignItems: "center",
+  },
+  textInput: {
+    height: 50,
+    flex: 1,
+    padding: 10,
+  },
+  registerBtn: {
+    width: 150,
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+    backgroundColor: "#55D7F5",
+  },
+  forgot_button: {
+    height: 30,
+    marginBottom: 10,
+  },
 });
 
 export default RegisterPage;
