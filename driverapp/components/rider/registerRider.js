@@ -63,11 +63,10 @@ class RegisterPage extends React.Component {
         "password": this.state.password,
         "phone": this.state.phoneNumber,
       }
-      // TODO: Once fully connected need to move this.props.history.push() to the success .then portion so we only move you with a successful request.
-      this.props.history.push("/rideRequest");
       SaveItem('sunet', this.state.sunet);
       axios.post(url, body)
         .then(function(res) {
+          this.props.history.push("/rideRequest");
           console.log('Response received\n');
           console.log(res.data);
         })
