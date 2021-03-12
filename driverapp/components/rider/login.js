@@ -79,6 +79,7 @@ class LoginRiderPage extends React.Component {
                   }}
                 />
               </View>
+              {/* TODO: Implement forgot password function */}
               <TouchableOpacity>
                   <Text style={styles.forgot_button}>Forgot Password?</Text>
               </TouchableOpacity>
@@ -113,7 +114,7 @@ class LoginRiderPage extends React.Component {
       width: 170,
       height: 170,
       marginBottom: 40,
-      marginTop: 100,
+      marginTop: 70,
     },
     inputView: {
       backgroundColor: "#eceeee",
