@@ -45,7 +45,7 @@ class LoginPage extends React.Component {
         <>
           <StatusBar barStyle="dark-content" />
           <SafeAreaView>
-          <View style={styles.back}>
+            <View style={styles.back}>
                 <Button
                   onPress={this.backHome}
                   title="<Home"
@@ -60,8 +60,11 @@ class LoginPage extends React.Component {
               />
               <View style={styles.inputView}>
                 <TextInput
+                  autoCompleteType={'off'}
+                  autoCorrect={false}
+                  spellCheck={false}
                   style={styles.textInput}
-                  placeholder="Driver ID"
+                  placeholder="Username or Sunet ID"
                   placeholderTextColor="#a3aaad"
                   onChange={(e) => {
                     this.setState({ studentID: e.nativeEvent.text });
@@ -70,6 +73,9 @@ class LoginPage extends React.Component {
               </View>
               <View style={styles.inputView}>
                 <TextInput
+                  autoCompleteType={'off'}
+                  autoCorrect={false}
+                  spellCheck={false}
                   style={styles.textInput}
                   placeholder="Password"
                   placeholderTextColor="#a3aaad"

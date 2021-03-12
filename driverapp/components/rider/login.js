@@ -60,6 +60,9 @@ class LoginRiderPage extends React.Component {
               />
               <View style={styles.inputView}>
                 <TextInput
+                  autoCompleteType={'off'}
+                  autoCorrect={false}
+                  spellCheck={false}
                   style={styles.textInput}
                   placeholder="Sunet ID"
                   placeholderTextColor="#a3aaad"
@@ -70,6 +73,9 @@ class LoginRiderPage extends React.Component {
               </View>
               <View style={styles.inputView}>
                 <TextInput
+                  autoCompleteType={'off'}
+                  autoCorrect={false}
+                  spellCheck={false}
                   style={styles.textInput}
                   placeholder="Password"
                   placeholderTextColor="#a3aaad"
