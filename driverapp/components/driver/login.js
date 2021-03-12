@@ -23,6 +23,11 @@ class LoginPage extends React.Component {
       };
       this.switchToRegister = this.switchToRegister.bind(this);
       this.login = this.login.bind(this);
+      this.backHome = this.backHome.bind(this);
+    }
+
+    backHome() {
+        this.props.history.push("/");
     }
 
     switchToRegister() {
@@ -67,6 +72,12 @@ class LoginPage extends React.Component {
                   onPress={this.switchToRegister}
                   title="Don't Have an Account? Register"
                   accessibilityLabel="Register"
+                  color='#55D7F5'
+              />
+              <Button
+                  onPress={this.backHome}
+                  title="Back Home"
+                  accessibilityLabel="Back Home"
                   color='#55D7F5'
               />
             </View>
