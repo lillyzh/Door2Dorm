@@ -39,11 +39,11 @@ class HomePage extends React.Component {
             />
             <Text style={styles.optionText}> I am a </Text>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity onPress={this.riderEnters}>
-                <Text style={styles.button}> Rider </Text>
+              <TouchableOpacity onPress={this.riderEnters} style={styles.button}>
+                <Text> Rider </Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={this.driverEnters}>
-                <Text style={styles.button}> Driver </Text>
+              <TouchableOpacity onPress={this.driverEnters} style={styles.button}>
+                <Text> Driver </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -85,17 +85,15 @@ class HomePage extends React.Component {
     },
     button: {
       backgroundColor: '#55D7F5',
-      borderColor: 'white',
-      borderWidth: 1,
       borderRadius: 11,
       color: 'black',
-      fontSize: 20,
       overflow: 'hidden',
-      padding: 5,
       textAlign:'center',
       width: 100,
       height: 40,
       margin: 10,
+      alignItems: "center",
+      padding: 10,
     },
     buttonContainer: {
       flexDirection: "row",
