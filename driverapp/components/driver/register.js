@@ -3,7 +3,7 @@ import React from 'react';
 import {
     SafeAreaView,
     StyleSheet,
-    ScrollView,
+    TouchableOpacity,
     TextInput,
     Text,
     StatusBar,
@@ -23,8 +23,10 @@ class RegisterPage extends React.Component {
         firstName: "",
         lastName: "",
         phoneNumber: "",
-        studentID: "",
+        ID: "",
         password: "",
+        emailAddress: "",
+        driverLicense: "",
       };
       this.register = this.register.bind(this);
       this.switchToLogin = this.switchToLogin.bind(this);
@@ -43,62 +45,116 @@ class RegisterPage extends React.Component {
         <>
           <StatusBar barStyle="dark-content" />
           <SafeAreaView>
-            <ScrollView>
-                <Text style={styles.title}>Register</Text>
-                
-                <Text style={styles.sectionTitle}>First Name</Text>
+          <View style={styles.container}>
+              <Image
+                style={styles.logo}
+                source={require('../../img/Door2Dorm2.png')}
+              />
+              <View style={styles.inputView}>
                 <TextInput
-                    style={styles.textInput}
-                    onChange={(e) => {
-                        this.setState({ firstName: e.nativeEvent.text });
-                    }}
+                  autoCompleteType={'off'}
+                  autoCorrect={false}
+                  spellCheck={false}
+                  style={styles.textInput}
+                  placeholder="First Name"
+                  placeholderTextColor="#a3aaad"
+                  onChange={(e) => {
+                    this.setState({ firstName: e.nativeEvent.text });
+                  }}
                 />
-                <Text style={styles.sectionTitle}>Last Name</Text>
+              </View>
+              <View style={styles.inputView}>
                 <TextInput
-                    style={styles.textInput}
-                    onChange={(e) => {
-                        this.setState({ lastName: e.nativeEvent.text });
-                    }}
+                  autoCompleteType={'off'}
+                  autoCorrect={false}
+                  spellCheck={false}
+                  style={styles.textInput}
+                  placeholder="Last Name"
+                  placeholderTextColor="#a3aaad"
+                  onChange={(e) => {
+                    this.setState({ lastName: e.nativeEvent.text });
+                  }}
                 />
-                <Text style={styles.sectionTitle}>Phone Number</Text>
+              </View>
+              <View style={styles.inputView}>
                 <TextInput
-                    style={styles.textInput}
-                    onChange={(e) => {
-                        this.setState({ phoneNumber: e.nativeEvent.text });
-                    }}
+                  autoCompleteType={'off'}
+                  autoCorrect={false}
+                  spellCheck={false}
+                  style={styles.textInput}
+                  placeholder="Phone Number"
+                  placeholderTextColor="#a3aaad"
+                  onChange={(e) => {
+                    this.setState({ phoneNumber: e.nativeEvent.text });
+                  }}
                 />
-                <Text style={styles.sectionTitle}>Student ID</Text>
+              </View>
+              <View style={styles.inputView}>
                 <TextInput
-                    style={styles.textInput}
-                    onChange={(e) => {
-                        this.setState({ studentID: e.nativeEvent.text });
-                    }}
+                  autoCapitalize={'none'}
+                  autoCompleteType={'off'}
+                  autoCorrect={false}
+                  spellCheck={false}
+                  style={styles.textInput}
+                  placeholder="Email"
+                  placeholderTextColor="#a3aaad"
+                  onChange={(e) => {
+                    this.setState({ emailAddress: e.nativeEvent.text });
+                  }}
                 />
-                <Text style={styles.sectionTitle}>Password</Text>
+            </View>
+            <View style={styles.inputView}>
                 <TextInput
-                    style={styles.textInput}
-                    onChange={(e) => {
-                        this.setState({ password: e.nativeEvent.text });
-                    }}
+                  autoCapitalize={'none'}
+                  autoCompleteType={'off'}
+                  autoCorrect={false}
+                  spellCheck={false}
+                  style={styles.textInput}
+                  placeholder="Driver license"
+                  placeholderTextColor="#a3aaad"
+                  onChange={(e) => {
+                    this.setState({ driverLicense: e.nativeEvent.text });
+                  }}
                 />
-                <View style={styles.buttonContainer}>
-                  <Button
-                      style={styles.button}
-                      onPress={this.register}
-                      title="Register"
-                      accessibilityLabel="Register"
-                      color='#55D7F5'
-                  />
-                  <View style={styles.separator} />
-                  <Button
-                      style={styles.button}
-                      onPress={this.switchToLogin}
-                      title="Already Have an Account? Login"
-                      accessibilityLabel="Login"
-                      color='#55D7F5'
-                  />
-                </View> 
-              </ScrollView>
+            </View>
+              <View style={styles.inputView}>
+                <TextInput
+                  autoCompleteType={'off'}
+                  autoCorrect={false}
+                  spellCheck={false}
+                  style={styles.textInput}
+                  placeholder="Username or Sunet ID"
+                  placeholderTextColor="#a3aaad"
+                  onChange={(e) => {
+                    this.setState({ ID: e.nativeEvent.text });
+                  }}
+                />
+              </View>
+              <View style={styles.inputView}>
+                <TextInput
+                  autoCompleteType={'off'}
+                  autoCorrect={false}
+                  spellCheck={false}
+                  style={styles.textInput}
+                  placeholder="Password"
+                  placeholderTextColor="#a3aaad"
+                  secureTextEntry={true}
+                  onChange={(e) => {
+                    this.setState({ password : e.nativeEvent.text });
+                  }}
+                />
+              </View>
+              <TouchableOpacity onPress={this.register} style={styles.registerBtn}>
+                  <Text>Register</Text>
+              </TouchableOpacity>
+              <Button
+                  style={styles.button}
+                  onPress={this.switchToLogin}
+                  title="Already Have an Account? Sign In"
+                  accessibilityLabel="Login"
+                  color='black'
+              />
+              </View> 
           </SafeAreaView>
         </>
       );
@@ -106,32 +162,44 @@ class RegisterPage extends React.Component {
   }
   
   const styles = StyleSheet.create({
-    textInput: { 
-        height: 40, 
-        borderColor: 'gray', 
-        borderWidth: 1,
-        marginBottom: 24,
-    },
-    title: {
-        fontSize: 32,
-        textAlign: 'center',
-        fontWeight: '600',
-        color: Colors.black,
-        marginVertical: 32,
-    },
-    sectionTitle: {
-      fontSize: 20,
-      fontWeight: '600',
-      color: Colors.black,
-    },
-    buttonContainer: {
-      alignSelf: 'center',
-      justifyContent:"flex-start",
+    container: {
       alignItems: 'center',
+      justifyContent: 'center',
+     },
+    back: {
+      alignItems: "flex-start",
     },
-    separator: {
-      marginVertical: 8,
-      borderBottomColor: '#737373',
+    logo: {
+      width: 170,
+      height: 170,
+      marginBottom: 40,
+      marginTop: 20,
+    },
+    inputView: {
+      backgroundColor: "#eceeee",
+      borderRadius: 30,
+      width: 350,
+      height: 45,
+      marginBottom: 20,
+      alignItems: "center",
+    },
+    textInput: {
+      height: 50,
+      flex: 1,
+      padding: 10,
+    },
+    registerBtn: {
+      width: 150,
+      borderRadius: 25,
+      height: 50,
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: 20,
+      backgroundColor: "#55D7F5",
+    },
+    forgot_button: {
+      height: 30,
+      marginBottom: 10,
     },
   });
   
