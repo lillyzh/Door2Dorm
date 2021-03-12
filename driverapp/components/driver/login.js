@@ -8,6 +8,8 @@ import {
     Text,
     StatusBar,
     View,
+    Image,
+    TouchableOpacity
   } from 'react-native';
   
   import {
@@ -42,43 +44,56 @@ class LoginPage extends React.Component {
       return (
         <>
           <StatusBar barStyle="dark-content" />
-          <SafeAreaView style={styles.container}>
-            <View style={styles.textContainer}>
-              <Text style={styles.title}>Login</Text>
-              <Text style={styles.sectionTitle}>Student ID</Text>
-              <TextInput
-                  style={styles.textInput}
-                  onChange={(e) => {
-                      this.setState({ studentID: e.nativeEvent.text });
-                  }}
+          <SafeAreaView>
+          <View style={styles.back}>
+                <Button
+                  onPress={this.backHome}
+                  title="<Home"
+                  accessibilityLabel="<Home"
+                  color='black'
+                />
+            </View>
+            <View style={styles.container}>
+              <Image
+                style={styles.logo}
+                source={require('../../img/Door2Dorm2.png')}
               />
-              <Text style={styles.sectionTitle}>Password</Text>
-              <TextInput
+              <View style={styles.inputView}>
+                <TextInput
                   style={styles.textInput}
+                  placeholder="Driver ID"
+                  placeholderTextColor="#a3aaad"
                   onChange={(e) => {
-                      this.setState({ password : e.nativeEvent.text });
+                    this.setState({ studentID: e.nativeEvent.text });
                   }}
-              />
+                />
+              </View>
+              <View style={styles.inputView}>
+                <TextInput
+                  style={styles.textInput}
+                  placeholder="Password"
+                  placeholderTextColor="#a3aaad"
+                  secureTextEntry={true}
+                  onChange={(e) => {
+                    this.setState({ password : e.nativeEvent.text });
+                  }}
+                />
+              </View>
+              {/* TODO: Implement forgot password function */}
+              <TouchableOpacity>
+                  <Text style={styles.forgot_button}>Forgot Password?</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={this.login} style={styles.loginBtn}>
+                  <Text style={styles.loginText}>LOGIN</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.buttonContainer}>
-              <Button
-                  onPress={this.login}
-                  title="Login"
-                  accessibilityLabel="Login"
-                  color='#55D7F5'
-              />
               <View style={styles.separator} />
               <Button
                   onPress={this.switchToRegister}
-                  title="Don't Have an Account? Register"
-                  accessibilityLabel="Register"
-                  color='#55D7F5'
-              />
-              <Button
-                  onPress={this.backHome}
-                  title="Back Home"
-                  accessibilityLabel="Back Home"
-                  color='#55D7F5'
+                  title="New user? Sign Up"
+                  accessibilityLabel="New user? Sign Up"
+                  color='black'
               />
             </View>
           </SafeAreaView>
@@ -88,32 +103,44 @@ class LoginPage extends React.Component {
   }
   
   const styles = StyleSheet.create({
-    textInput: { 
-        height: 40, 
-        borderColor: 'gray', 
-        borderWidth: 1,
-        marginBottom: 24,
-    },
-    sectionTitle: {
-      fontSize: 24,
-      fontWeight: '600',
-      color: Colors.black,
-    },
-    title: {
-        fontSize: 32,
-        textAlign: 'center',
-        fontWeight: '600',
-        color: Colors.black,
-        marginVertical: 32,
-    },
-    buttonContainer: {
-      alignSelf: 'center',
-      justifyContent:"flex-start",
+    container: {
       alignItems: 'center',
+      justifyContent: 'center',
+     },
+    back: {
+      alignItems: "flex-start",
     },
-    separator: {
-      marginVertical: 8,
-      borderBottomColor: '#737373',
+    logo: {
+      width: 170,
+      height: 170,
+      marginBottom: 40,
+      marginTop: 70,
+    },
+    inputView: {
+      backgroundColor: "#eceeee",
+      borderRadius: 30,
+      width: 350,
+      height: 45,
+      marginBottom: 20,
+      alignItems: "center",
+    },
+    textInput: {
+      height: 50,
+      flex: 1,
+      padding: 10,
+    },
+    loginBtn: {
+      width: 150,
+      borderRadius: 25,
+      height: 50,
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: 40,
+      backgroundColor: "#55D7F5",
+    },
+    forgot_button: {
+      height: 30,
+      marginBottom: 10,
     },
   });
   
