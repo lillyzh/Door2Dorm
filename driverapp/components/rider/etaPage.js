@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {
   Text,
   TextInput,
@@ -7,7 +6,8 @@ import {
   Alert,
   View,
   StyleSheet,
-  Dimensions
+  Dimensions,
+  StatusBar,
 } from 'react-native';
 import MapView from 'react-native-maps';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
@@ -38,33 +38,31 @@ class EtaPage extends React.Component {
       <View style={styles.body}>
         <LocationContext.Consumer>
         {({ cur_lat, cur_long }) => {
-                    let cur_lat_num = Number(cur_lat)
-                    let cur_long_num = Number(cur_long)
-                    return (
-                            <>
-                            <MapView
-                            initialRegion={{
-                              latitude: cur_lat_num,
-                              longitude: cur_long_num,
-                              latitudeDelta: 0.0922,
-                              longitudeDelta: 0.0421,
-                            }}
-                            style = {styles.map}
-                            showsUserLocation = {true}
-                            followUserLocation = {false}
-                            zoomEnabled = {true}
-                          />
-                          <Text style={styles.sectionTitle}>Your current latitude is {cur_lat}.</Text>
-                          <Text style={styles.sectionTitle}>Your current longitude is {cur_long}. </Text>
-                          </>
-                          )
+            let cur_lat_num = Number(cur_lat)
+            let cur_long_num = Number(cur_long)
+            return (
+                    <>
+                    <StatusBar />
+                    <MapView
+                    initialRegion={{
+                      latitude: cur_lat_num,
+                      longitude: cur_long_num,
+                      latitudeDelta: 0.0922,
+                      longitudeDelta: 0.0421,
+                    }}
+                    style = {styles.map}
+                    showsUserLocation = {true}
+                    followUserLocation = {false}
+                    zoomEnabled = {true}
+                  />
+                  <Text style={styles.sectionTitle}>Your current latitude is {cur_lat}.</Text>
+                  <Text style={styles.sectionTitle}>Your current longitude is {cur_long}. </Text>
+                  </>
+                  )
 
-                  }
-                }
-          
-      
-        
-      </LocationContext.Consumer>
+          }
+        }
+        </LocationContext.Consumer>
         <Text style={styles.sectionTitle}>There are currently {this.state.queuePosition} ahead of you in the queue</Text>
         <Text style={styles.sectionTitle}>You have an estimated {this.state.timeLeft} minutes before 5-SURE arrives</Text>
         <Button

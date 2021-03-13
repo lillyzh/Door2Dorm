@@ -6,6 +6,10 @@ import {
   Alert,
   View,
   StyleSheet,
+  StatusBar,
+  Dimensions,
+  SafeAreaView,
+  TouchableOpacity,
 } from 'react-native';
 import axios from 'axios';
 import { ReadItem } from "./databaseHelper";
@@ -13,6 +17,7 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import { LocationContext } from '../locationContext.js';
+import MapView from 'react-native-maps';
 
 class RequestPage extends React.Component {
   constructor(props) {
@@ -104,80 +109,197 @@ class RequestPage extends React.Component {
 
   render() {
     return (
-          <View style={styles.body}>
-                <Text style={styles.sectionTitle}>Current Location</Text>
+      <SafeAreaView>
+          <View style={styles.back}>
+              <Button
+                onPress={this.logoutButton}
+                title="Back"
+                accessibilityLabel="Back"
+                color='black'
+              />
+          </View>
+          <View style={styles.container}>
+              <View style={styles.inputView}>
+                <Text style={styles.sectionTitle}>Current address</Text>
                 <TextInput
-                      autoCapitalize={'none'}
-                      autoCompleteType={'off'}
-                      autoCorrect={false}
-                      spellCheck={false}
-                      style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                      onChange={(e) => {
-                          this.setState({ currentLoc: e.nativeEvent.text });
-                      }}
+                  autoCapitalize={'none'}
+                  autoCompleteType={'off'}
+                  autoCorrect={false}
+                  spellCheck={false}
+                  style={styles.textInput}
+                  onChange={(e) => {
+                    this.setState({ currentLoc: e.nativeEvent.text });
+                  }}
                 />
-
-                <Text style={styles.sectionTitle}>Destination</Text>
+              </View>
+              {/* <TextInput
+                    autoCapitalize={'none'}
+                    autoCompleteType={'off'}
+                    autoCorrect={false}
+                    spellCheck={false}
+                    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                    onChange={(e) => {
+                        this.setState({ currentLoc: e.nativeEvent.text });
+                    }}
+              /> */}
+              <View style={styles.inputView}>
+                <Text style={styles.sectionTitle}>Destination address</Text>
                 <TextInput
-                      autoCapitalize={'none'}
-                      autoCompleteType={'off'}
-                      autoCorrect={false}
-                      spellCheck={false}
-                      style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                      onChange={(e) => {
-                          this.setState({ destination: e.nativeEvent.text });
-                      }}
+                  autoCapitalize={'none'}
+                  autoCompleteType={'off'}
+                  autoCorrect={false}
+                  spellCheck={false}
+                  style={styles.textInput}
+                  onChange={(e) => {
+                    this.setState({ destination: e.nativeEvent.text });
+                  }}
                 />
-
-                <Text style={styles.sectionTitle}>Number of Riders</Text>
+              </View>
+              {/* <Text style={styles.sectionTitle}>Destination</Text>
+              <TextInput
+                    autoCapitalize={'none'}
+                    autoCompleteType={'off'}
+                    autoCorrect={false}
+                    spellCheck={false}
+                    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                    onChange={(e) => {
+                        this.setState({ destination: e.nativeEvent.text });
+                    }}
+              /> */}
+              <View style={styles.inputView}>
+                <Text style={styles.sectionTitle}>Number of riders</Text>
                 <TextInput
-                      style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                      keyboardType={'number-pad'}
-                      onChange={(e) => {
-                          this.setState({ numRiders: e.nativeEvent.text });
-                      }}
+                  keyboardType={'number-pad'}
+                  style={styles.textInput}
+                  onChange={(e) => {
+                    this.setState({ numRiders: e.nativeEvent.text });
+                  }}
                 />
-
-                <Text style={styles.sectionTitle}>Safety Level</Text>
-                <Text style={styles.sectionTitle}>Rate 0-9 (0 no problem, 9 emergency)</Text>
+              </View>
+              {/* <Text style={styles.sectionTitle}>Number of Riders</Text>
+              <TextInput
+                    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                    keyboardType={'number-pad'}
+                    onChange={(e) => {
+                        this.setState({ numRiders: e.nativeEvent.text });
+                    }}
+              /> */}
+              <View style={styles.inputView}>
+                <Text style={styles.sectionTitle}>Satety level (0-9)</Text>
                 <TextInput
-                      style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                      keyboardType={'number-pad'}
-                      onChange={(e) => {
-                          this.setState({ safetyLevel: e.nativeEvent.text });
-                      }}
+                  keyboardType={'number-pad'}
+                  style={styles.textInput}
+                  placeholder="Ex: 9 is emergency."
+                  placeholderTextColor="#a3aaad"
+                  onChange={(e) => {
+                    this.setState({ safetyLevel: e.nativeEvent.text });
+                  }}
                 />
+              </View>
+              {/* <Text style={styles.sectionTitle}>Safety Level</Text>
+              <Text style={styles.sectionTitle}>Rate 0-9 (0 no problem, 9 emergency)</Text>
+              <TextInput
+                    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                    keyboardType={'number-pad'}
+                    onChange={(e) => {
+                        this.setState({ safetyLevel: e.nativeEvent.text });
+                    }}
+              /> */}
+              <LocationContext.Consumer>
+                {({ cur_lat, cur_long }) => {
+                    let cur_lat_num = Number(cur_lat)
+                    let cur_long_num = Number(cur_long)
+                    return (
+                            <>
+                            <StatusBar/>
+                            <MapView
+                                initialRegion={{
+                                  // TODO: Fix the current location lat/long
+                                  latitude: 37.427475,
+                                  longitude: -122.169716,
+                                  latitudeDelta: 0.0922,
+                                  longitudeDelta: 0.0421,
+                                }}
+                                style = {styles.map}
+                                showsUserLocation = {true}
+                                followUserLocation = {true}
+                                zoomEnabled = {false}
+                          />
+                          </>
+                          )
 
-                <LocationContext.Consumer>
-                {({ setLat, setLong }) => {
-                    return (<Button
-                      title="Request Ride"
-                      onPress={() => {
-                        this.requestButton(setLat, setLong)}
-                      }
-                    />)
                   }
                 }
-                </LocationContext.Consumer>
-                
-                <Button
-                    title="Logout"
-                    onPress={this.logoutButton}
-                />
+              </LocationContext.Consumer>
+              <LocationContext.Consumer>
+                {({ setLat, setLong }) => {
+                    return (
+                      <TouchableOpacity 
+                        onPress={() => {
+                          this.requestButton(setLat, setLong)
+                          }
+                        }
+                        style={styles.button}>
+                        <Text style={{ alignSelf: 'center' }}> Request ride </Text>
+                      </TouchableOpacity>
+                    )
+                  }
+                }
+            </LocationContext.Consumer>
           </View>
+        </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-      body: {
-        backgroundColor: Colors.white,
-      },
-      sectionTitle: {
-        fontSize: 24,
-        fontWeight: '600',
-        color: Colors.black,
-      }
+    container: {
+      //alignItems: 'center',
+      //justifyContent: 'center',
+    },
+    inputView: {
+      backgroundColor: 'white',
+      borderRadius: 5,
+      width: Dimensions.get('window').width - 20,
+      height: 60,
+      borderWidth: 1,
+      borderColor: '#a3aaad',
+      marginLeft: 10,
+      marginRight: 10,
+      shadowOpacity: 0.1,
+      marginBottom: 10,
+    },
+    textInput: {
+      height: 50,
+      flex: 1,
+      padding: 10,
+    },
+    map: {
+      marginTop: 10,
+      width: Dimensions.get('window').width,
+      height: Dimensions.get('window').height/2,
+    },
+    back: {
+      alignItems: "flex-start",
+    },
+    sectionTitle: {
+      alignItems: "flex-start",
+      marginLeft: 10,
+      fontWeight: 'bold',
+      color: '#55D7F9',
+    },
+    button: {
+      backgroundColor: '#55D7F5',
+      borderRadius: 11,
+      color: 'black',
+      overflow: 'hidden',
+      textAlign:'center',
+      width: 200,
+      height: 40,
+      margin: 10,
+      alignSelf: 'center',
+      padding: 10,
+    },
 });
 
 export default RequestPage;
