@@ -48,8 +48,8 @@ class LoginRiderPage extends React.Component {
             <View style={styles.back}>
                 <Button
                   onPress={this.backHome}
-                  title="<Home"
-                  accessibilityLabel="<Home"
+                  title="Back"
+                  accessibilityLabel="Back"
                   color='black'
                 />
             </View>
