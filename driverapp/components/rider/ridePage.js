@@ -119,92 +119,6 @@ class RequestPage extends React.Component {
               />
           </View>
           <View style={styles.container}>
-              <View style={styles.inputView}>
-                <Text style={styles.sectionTitle}>Current address</Text>
-                <TextInput
-                  autoCapitalize={'none'}
-                  autoCompleteType={'off'}
-                  autoCorrect={false}
-                  spellCheck={false}
-                  style={styles.textInput}
-                  onChange={(e) => {
-                    this.setState({ currentLoc: e.nativeEvent.text });
-                  }}
-                />
-              </View>
-              {/* <TextInput
-                    autoCapitalize={'none'}
-                    autoCompleteType={'off'}
-                    autoCorrect={false}
-                    spellCheck={false}
-                    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                    onChange={(e) => {
-                        this.setState({ currentLoc: e.nativeEvent.text });
-                    }}
-              /> */}
-              <View style={styles.inputView}>
-                <Text style={styles.sectionTitle}>Destination address</Text>
-                <TextInput
-                  autoCapitalize={'none'}
-                  autoCompleteType={'off'}
-                  autoCorrect={false}
-                  spellCheck={false}
-                  style={styles.textInput}
-                  onChange={(e) => {
-                    this.setState({ destination: e.nativeEvent.text });
-                  }}
-                />
-              </View>
-              {/* <Text style={styles.sectionTitle}>Destination</Text>
-              <TextInput
-                    autoCapitalize={'none'}
-                    autoCompleteType={'off'}
-                    autoCorrect={false}
-                    spellCheck={false}
-                    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                    onChange={(e) => {
-                        this.setState({ destination: e.nativeEvent.text });
-                    }}
-              /> */}
-              <View style={styles.inputView}>
-                <Text style={styles.sectionTitle}>Number of riders</Text>
-                <TextInput
-                  keyboardType={'number-pad'}
-                  style={styles.textInput}
-                  onChange={(e) => {
-                    this.setState({ numRiders: e.nativeEvent.text });
-                  }}
-                />
-              </View>
-              {/* <Text style={styles.sectionTitle}>Number of Riders</Text>
-              <TextInput
-                    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                    keyboardType={'number-pad'}
-                    onChange={(e) => {
-                        this.setState({ numRiders: e.nativeEvent.text });
-                    }}
-              /> */}
-              <View style={styles.inputView}>
-                <Text style={styles.sectionTitle}>Satety level (0-9)</Text>
-                <TextInput
-                  keyboardType={'number-pad'}
-                  style={styles.textInput}
-                  placeholder="Ex: 9 is emergency."
-                  placeholderTextColor="#a3aaad"
-                  onChange={(e) => {
-                    this.setState({ safetyLevel: e.nativeEvent.text });
-                  }}
-                />
-              </View>
-              {/* <Text style={styles.sectionTitle}>Safety Level</Text>
-              <Text style={styles.sectionTitle}>Rate 0-9 (0 no problem, 9 emergency)</Text>
-              <TextInput
-                    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                    keyboardType={'number-pad'}
-                    onChange={(e) => {
-                        this.setState({ safetyLevel: e.nativeEvent.text });
-                    }}
-              /> */}
               <LocationContext.Consumer>
                 {({ cur_lat, cur_long }) => {
                     let cur_lat_num = Number(cur_lat)
@@ -223,7 +137,7 @@ class RequestPage extends React.Component {
                                 style = {styles.map}
                                 showsUserLocation = {true}
                                 followUserLocation = {true}
-                                zoomEnabled = {false}
+                                zoomEnabled = {true}
                           />
                           </>
                           )
@@ -231,6 +145,54 @@ class RequestPage extends React.Component {
                   }
                 }
               </LocationContext.Consumer>
+              <View style={styles.inputView}>
+                <Text style={styles.sectionTitle}>Current address</Text>
+                <TextInput
+                  autoCapitalize={'none'}
+                  autoCompleteType={'off'}
+                  autoCorrect={false}
+                  spellCheck={false}
+                  style={styles.textInput}
+                  onChange={(e) => {
+                    this.setState({ currentLoc: e.nativeEvent.text });
+                  }}
+                />
+              </View>
+              <View style={styles.inputView}>
+                <Text style={styles.sectionTitle}>Destination address</Text>
+                <TextInput
+                  autoCapitalize={'none'}
+                  autoCompleteType={'off'}
+                  autoCorrect={false}
+                  spellCheck={false}
+                  style={styles.textInput}
+                  onChange={(e) => {
+                    this.setState({ destination: e.nativeEvent.text });
+                  }}
+                />
+              </View>
+              <View style={styles.inputView}>
+                <Text style={styles.sectionTitle}>Number of riders (1-4)</Text>
+                <TextInput
+                  keyboardType={'number-pad'}
+                  style={styles.textInput}
+                  onChange={(e) => {
+                    this.setState({ numRiders: e.nativeEvent.text });
+                  }}
+                />
+              </View>
+              <View style={styles.inputView}>
+                <Text style={styles.sectionTitle}>Safety level (0-9)</Text>
+                <TextInput
+                  keyboardType={'number-pad'}
+                  style={styles.textInput}
+                  placeholder="Ex: 9 is emergency."
+                  placeholderTextColor="#a3aaad"
+                  onChange={(e) => {
+                    this.setState({ safetyLevel: e.nativeEvent.text });
+                  }}
+                />
+              </View>
               <LocationContext.Consumer>
                 {({ setLat, setLong }) => {
                     return (
@@ -263,10 +225,10 @@ const styles = StyleSheet.create({
       width: Dimensions.get('window').width - 20,
       height: 60,
       borderWidth: 1,
-      borderColor: '#a3aaad',
+      borderColor: '#ebeff1',
       marginLeft: 10,
       marginRight: 10,
-      shadowOpacity: 0.1,
+      shadowOpacity: 0.02,
       marginBottom: 10,
     },
     textInput: {
@@ -275,9 +237,9 @@ const styles = StyleSheet.create({
       padding: 10,
     },
     map: {
-      marginTop: 10,
       width: Dimensions.get('window').width,
-      height: Dimensions.get('window').height/2,
+      height: Dimensions.get('window').height/2.2,
+      marginBottom: 10,
     },
     back: {
       alignItems: "flex-start",
@@ -294,7 +256,7 @@ const styles = StyleSheet.create({
       color: 'black',
       overflow: 'hidden',
       textAlign:'center',
-      width: 200,
+      width: 150,
       height: 40,
       margin: 10,
       alignSelf: 'center',
