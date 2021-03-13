@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Dimensions,
   StatusBar,
+  TouchableOpacity,
 } from 'react-native';
 import MapView from 'react-native-maps';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
@@ -55,20 +56,32 @@ class EtaPage extends React.Component {
                     followUserLocation = {false}
                     zoomEnabled = {true}
                   />
-                  <Text style={styles.sectionTitle}>Your current latitude is {cur_lat}.</Text>
-                  <Text style={styles.sectionTitle}>Your current longitude is {cur_long}. </Text>
                   </>
                   )
 
           }
         }
         </LocationContext.Consumer>
-        <Text style={styles.sectionTitle}>There are currently {this.state.queuePosition} ahead of you in the queue</Text>
-        <Text style={styles.sectionTitle}>You have an estimated {this.state.timeLeft} minutes before 5-SURE arrives</Text>
-        <Button
-          title="Leave Queue"
-          onPress={this.leaveQueue}
-        />
+        <View>
+          <Text style={styles.confirmation}>Your ride is registered! Current wait time is approximately {this.state.timeLeft} minutes.</Text>
+          <Text style={styles.detailTitle}>Ride Details</Text>
+          <View style={styles.message}>
+            <Text>Queue positon: {this.state.queuePosition}</Text>
+            <Text>Driver name: TBD </Text>
+            <Text>License plate: TBD </Text>
+
+            {/* TODO: Update these addresses from ridePage.js */}
+            <Text>From: 123 Stanford Dr. Palo Alto, CA 97862 </Text>
+            <Text>To: 139 Green Dr. Palo Alto, CA 97862 </Text>
+          </View>
+          <Text style={styles.detailTitle}>Notes</Text>
+          <View style={styles.message}>
+            <Text>We will let you know when a driver is assigned. Please call 911 if you are feeling unsafe.</Text>
+          </View>
+        </View>
+        <TouchableOpacity onPress={this.leaveQueue} style={styles.button}>
+              <Text style={{ alignSelf: 'center' }}> Leave queue </Text>
+        </TouchableOpacity>
       </View>
       
     );
@@ -76,18 +89,40 @@ class EtaPage extends React.Component {
 }
 
 const styles = StyleSheet.create({
-      body: {
-        backgroundColor: Colors.white,
-      },
-      sectionTitle: {
-        fontSize: 24,
-        fontWeight: '600',
-        color: Colors.black,
-      },
-      map: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height/2,
-      },
+    confirmation: {
+      fontSize: 30,
+      marginLeft: 10,
+      fontWeight: "bold",
+      marginTop: 20,
+      marginBottom: 20,
+    },
+    message: {
+      marginTop: 5,
+      marginLeft: 10,
+    },
+    detailTitle: {
+      marginTop: 10,
+      marginLeft: 10,
+      color: 'gray',
+      fontWeight: 'bold',
+    },  
+    map: {
+      width: Dimensions.get('window').width,
+      height: Dimensions.get('window').height/2.2,
+    },
+    button: {
+      backgroundColor: '#f26d64',
+      borderRadius: 11,
+      color: 'black',
+      overflow: 'hidden',
+      textAlign:'center',
+      width: 150,
+      height: 40,
+      margin: 10,
+      alignSelf: "center",
+      padding: 10,
+      marginTop: 20,
+    },
 });
 
 export default EtaPage;
