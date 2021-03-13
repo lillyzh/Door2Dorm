@@ -11,10 +11,6 @@ import {
     Image,
     View,
   } from 'react-native';
-  
-  import {
-    Colors,
-  } from 'react-native/Libraries/NewAppScreen';
 
 class RegisterPage extends React.Component {
     constructor(props) {

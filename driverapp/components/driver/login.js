@@ -11,10 +11,6 @@ import {
     Image,
     TouchableOpacity
   } from 'react-native';
-  
-  import {
-    Colors,
-  } from 'react-native/Libraries/NewAppScreen';
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -64,7 +60,7 @@ class LoginPage extends React.Component {
                   autoCorrect={false}
                   spellCheck={false}
                   style={styles.textInput}
-                  placeholder="Username or Sunet ID"
+                  placeholder="Username"
                   placeholderTextColor="#a3aaad"
                   onChange={(e) => {
                     this.setState({ studentID: e.nativeEvent.text });

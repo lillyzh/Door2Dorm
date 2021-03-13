@@ -10,6 +10,7 @@ import {
     Text,
     StatusBar,
     Image,
+    TouchableOpacity,
   } from 'react-native';
   
   import {
@@ -47,13 +48,9 @@ class LoadingPage extends React.Component {
                 style={styles.image}
                 source={require('../../img/loading.jpg')}
               />
-              <Button
-                title="Log Out"
-                onPress={this.logout}
-                accessibilityLabel="Log Out"
-                style={styles.button}
-                color='#55D7F5'
-              />
+              <TouchableOpacity onPress={this.logout} style={styles.button}>
+                  <Text> Log Out </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </>
@@ -87,7 +84,17 @@ class LoadingPage extends React.Component {
       height: 200,
     },
     button: {
-    }
+      backgroundColor: '#55D7F5',
+      borderRadius: 11,
+      color: 'black',
+      overflow: 'hidden',
+      textAlign:'center',
+      width: 150,
+      height: 40,
+      margin: 10,
+      alignItems: "center",
+      padding: 10,
+    },
   });
   
   export default LoadingPage;

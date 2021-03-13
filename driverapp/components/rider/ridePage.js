@@ -3,7 +3,6 @@ import {
   Text,
   TextInput,
   Button,
-  Alert,
   View,
   StyleSheet,
   StatusBar,
@@ -118,7 +117,7 @@ class RequestPage extends React.Component {
                 color='black'
               />
           </View>
-          <View style={styles.container}>
+          <View>
               <LocationContext.Consumer>
                 {({ cur_lat, cur_long }) => {
                     let cur_lat_num = Number(cur_lat)
@@ -202,7 +201,7 @@ class RequestPage extends React.Component {
                           }
                         }
                         style={styles.button}>
-                        <Text style={{ alignSelf: 'center' }}> Request ride </Text>
+                        <Text style={{ alignSelf: 'center' }}> Request Ride </Text>
                       </TouchableOpacity>
                     )
                   }
@@ -215,10 +214,6 @@ class RequestPage extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-      //alignItems: 'center',
-      //justifyContent: 'center',
-    },
     inputView: {
       backgroundColor: 'white',
       borderRadius: 5,
@@ -228,7 +223,7 @@ const styles = StyleSheet.create({
       borderColor: '#ebeff1',
       marginLeft: 10,
       marginRight: 10,
-      shadowOpacity: 0.02,
+      shadowOpacity: 0.1,
       marginBottom: 10,
     },
     textInput: {

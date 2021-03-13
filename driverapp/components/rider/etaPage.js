@@ -1,9 +1,6 @@
 import React from 'react';
 import {
   Text,
-  TextInput,
-  Button,
-  Alert,
   View,
   StyleSheet,
   Dimensions,
@@ -11,7 +8,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import MapView from 'react-native-maps';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { LocationContext } from '../locationContext.js';
 
 class EtaPage extends React.Component {
@@ -67,7 +63,7 @@ class EtaPage extends React.Component {
           <Text style={styles.detailTitle}>Ride Details</Text>
           <View style={styles.message}>
             <Text>Queue positon: {this.state.queuePosition}</Text>
-            <Text>Driver name: TBD </Text>
+            <Text>Driver's name: TBD </Text>
             <Text>License plate: TBD </Text>
 
             {/* TODO: Update these addresses from ridePage.js */}

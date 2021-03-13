@@ -12,10 +12,6 @@ import {
     TouchableOpacity,
   } from 'react-native';
   
-  import {
-    Colors,
-  } from 'react-native/Libraries/NewAppScreen';
-
 class LoginRiderPage extends React.Component {
     constructor(props) {
       super(props);

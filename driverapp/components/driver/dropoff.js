@@ -3,17 +3,15 @@ import React from 'react';
 import {
     SafeAreaView,
     StyleSheet,
-    ScrollView,
+    TouchableOpacity,
     View,
-    TextInput,
-    Button,
+    Dimensions,
     Text,
     StatusBar,
   } from 'react-native';
-  
-  import {
-    Colors,
-  } from 'react-native/Libraries/NewAppScreen';
+  import MapView from 'react-native-maps';
+  import { LocationContext } from '../locationContext.js';
+  import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 class DropOffPage extends React.Component {
     constructor(props) {
@@ -36,13 +34,35 @@ class DropOffPage extends React.Component {
           <SafeAreaView>
             <View style={styles.container}>
                 <Text style={styles.sectionTitle}>Drop off {this.state.student} at {this.state.location}</Text>
+                <LocationContext.Consumer>
+                  {({ cur_lat, cur_long }) => {
+                      let cur_lat_num = Number(cur_lat)
+                      let cur_long_num = Number(cur_long)
+                      return (
+                              <>
+                              <MapView
+                              initialRegion={{
+                                // TODO: Fix these static lat/long
+                                latitude: 37.427475,
+                                longitude: -122.169716,
+                                latitudeDelta: 0.0922,
+                                longitudeDelta: 0.0421,
+                              }}
+                              style = {styles.map}
+                              showsUserLocation = {true}
+                              followUserLocation = {false}
+                              zoomEnabled = {true}
+                            />
+                            </>
+                            )
+
+                    }
+                  }
+                </LocationContext.Consumer>
                 <View style={styles.buttonContainer}>
-                  <Button
-                      onPress={this.droppedOff}
-                      title="Successfully Dropped Off"
-                      accessibilityLabel="Dropped Off"
-                      color='#55D7F5'
-                  />
+                  <TouchableOpacity onPress={this.droppedOff} style={styles.button}>
+                      <Text> Dropped Off </Text>
+                  </TouchableOpacity>
                 </View>
             </View>
           </SafeAreaView>
@@ -68,6 +88,23 @@ class DropOffPage extends React.Component {
       alignSelf: 'center',
       justifyContent:"flex-start",
       alignItems: 'center',
+    },
+    map: {
+      width: Dimensions.get('window').width,
+      height: Dimensions.get('window').height/2.2,
+    },
+    button: {
+      backgroundColor: '#55D7F5',
+      borderRadius: 11,
+      color: 'black',
+      overflow: 'hidden',
+      textAlign:'center',
+      width: 150,
+      height: 40,
+      margin: 10,
+      alignItems: "center",
+      padding: 10,
+      marginTop: 30,
     },
   });
   
