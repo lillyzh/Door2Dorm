@@ -13,6 +13,7 @@ import {
   import { LocationContext } from '../locationContext.js';
   import { DriverContext } from '../driverContext.js';
   import { Colors } from 'react-native/Libraries/NewAppScreen';
+  import axios from 'axios';
 
 class PickUpPage extends React.Component {
     constructor(props) {
