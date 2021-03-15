@@ -62,7 +62,7 @@ class LoadingPage extends React.Component {
     acceptRide(driver_id, ride_id) {
     // JSON file that will be sent to the POST endpoint
       let payload = {
-        "driver_id": driver_id,
+        "driver_phone": driver_id,
         "ride_id": ride_id,
       }
       const url = 'http://127.0.0.1:8000/drivers/placeholder/accept-assignment/';
